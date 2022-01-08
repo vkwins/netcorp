@@ -1,14 +1,18 @@
 @extends('layouts.app')
     @section('content')
         <table class="table table-bordered"  >
-            <tr><th>ID</th><th>Name</th><th>Year-Mon</th><th>Count</th></tr>
-            @foreach($agiLogs as $agiLog)
-                <tr>
-                    <td>{{$agiLog->id}}</td>
-                    <td>{{$agiLog->name}}</td>
-                    <td>{{ \Carbon\Carbon::parse($agiLog->year_mon)->format('Y-m')}}</td>
-                    <td>{{ number_format($agiLog->count) }}</td>
-                </tr>
-            @endforeach
+            @if($agiLogs->count() == 0)
+                <tr><th>No records found</th></tr>
+            @else
+                <tr><th>ID</th><th>Name</th><th>Year-Mon</th><th>Count</th></tr>
+                @foreach($agiLogs as $agiLog)
+                    <tr>
+                        <td>{{$id}}</td>
+                        <td>{{$vehicle->name}}</td>
+                        <td>{{$agiLog->year_mon}}</td>
+                        <td>{{ number_format($agiLog->count) }}</td>
+                    </tr>
+                @endforeach
+            @endif
         </table>
     @endsection

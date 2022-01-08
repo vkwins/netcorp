@@ -20,8 +20,6 @@ Route::get("/", function(){
  });
 
 Route::get('/active-vehicle-list', [VehiclesController::class, 'show']);
-Route::get('/vehicle-form', [VehiclesController::class, 'create']);
-Route::post('/vehicle-store', [VehiclesController::class, 'store']);
 
 Route::get('/log-count/{id}', [AgiLogController::class, 'show']);
 Route::get('/last-info/{id}', [AgiLogController::class, 'lastInfo']);

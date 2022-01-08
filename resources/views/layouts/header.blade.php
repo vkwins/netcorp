@@ -7,7 +7,6 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="/">Home</a>
       <a class="nav-item nav-link" href="/active-vehicle-list">Active vehicle list</a>
-      <a class="nav-item nav-link" href="/vehicle-form">Add vehicle</a>
     </div>
   </div>
 </nav>

@@ -10,13 +10,20 @@ class AgiLogController extends Controller
     public function show($id)
     {
         $agiLogs = DB::table('agi_log')
-                        ->join('vehicles', 'vehicles.id', '=', 'agi_log.vehicle_id')
-                        ->select('vehicles.name', 'vehicles.id', 'agi_log.count', 'agi_log.year_mon')
-                        ->where('vehicles.id',$id)
-                        ->orderBy('agi_log.year_mon','desc')
+                        ->select( DB::raw('COUNT(vehicle_id) as count'), DB::raw('DATE_FORMAT(local_time, "%Y-%m") as year_mon'))
+                        ->where('vehicle_id',$id)
+                        ->orderBy(DB::raw('DATE_FORMAT(local_time, "%Y-%m")'),'desc')
+                        ->groupBy(DB::raw('DATE_FORMAT(local_time, "%Y-%m")'))                        
                         ->get();
+
+        $id      = $id;
+        $vehicle = DB::table('vehicles')->select('name')->where('id',$id)->first();
+        //dd($name);
+        
         return view( 'agilog.listing',[
-            'agiLogs'=>$agiLogs
+            'agiLogs'=>$agiLogs,
+            'id'=>$id,
+            'vehicle'=>$vehicle
         ]);
     }
 
@@ -28,11 +35,13 @@ class AgiLogController extends Controller
                         ->where('vehicles.id',$id)
                         ->whereNotNull('agi_log.lng')
                         ->whereNotNull('agi_log.lat')
-                        ->orderBy('agi_log.id')
+                        ->orderBy('agi_log.local_time')
                         ->first();
 
-        $location           = $this->location($lastInfo->lat,$lastInfo->lng);
-        $lastInfo->location = $location;
+        if(!empty($lastInfo)){
+            $location           = $this->location($lastInfo->lat,$lastInfo->lng);
+            $lastInfo->location = $location;                
+        }
 
         return view( 'agilog.lastInfo',[
             'lastInfo'=>$lastInfo

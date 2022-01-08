@@ -12,9 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            AgiLogSeeder::class,
             DriverSeeder::class,
-            VehiclesSeeder::class,
         ]);    
     }
 }
