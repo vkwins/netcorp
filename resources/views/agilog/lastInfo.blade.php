@@ -1,5 +1,5 @@
 @extends('layouts.app')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDomdXnu7cdvYViAAd9GAyKE7DOSjWnRm0"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_KEY') }}"></script>
 <script>
     function initMap() {
     var coordinates = {

@@ -16,27 +16,4 @@ class VehiclesController extends Controller
         ]);
     }
 
-    public function create()
-    {
-        return view('vehicles.create');
-    }
-
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'name'        => 'required',
-            'is_agidrive' => 'required'
-        ]);
-
-        $vehicle = new Vehicles([
-            'name'        => $request->name,
-            'is_agidrive' => $request->is_agidrive
-        ]);
-
-        $vehicle->save();
-        return back()->with('success', 'Vehicle added');
-
-    }
-
-
 }
